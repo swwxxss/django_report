@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <style>
+        /* Стили для підказок */
+        .suggestions {
+            border: 1px solid #ddd;
+            max-width: 300px;
+            margin-top: 5px;
+        }
+        .suggestion-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+{% load static %}
+{% include 'library/navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <h1>Book List</h1>
+
+    <!-- Поле для введення пошуку -->
+    <input type="text" id="search-input" placeholder="Search for a book">
+    <div id="suggestions" class="suggestions"></div>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                {{ book.book_name }} by {{ book.book_autor }} ({{ book.book_genre }})
+            </li>
+        {% empty %}
+            <li>No books found.</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // Пошук з підказками через AJAX
+        document.getElementById('search-input').addEventListener('input', function() {
+            let query = this.value;
+
+            if (query.length > 1) {  // Починаємо пошук при довжині запиту > 1
+                fetch(`/books/search_suggestions/?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const suggestionsDiv = document.getElementById('suggestions');
+                        suggestionsDiv.innerHTML = '';  // Очищення попередніх підказок
+
+                        // Відображення нових підказок
+                        data.forEach(item => {
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.className = 'suggestion-item';
+                            suggestionItem.textContent = `${item.book_name} by ${item.book_autor} (${item.book_genre})`;
+                            suggestionsDiv.appendChild(suggestionItem);
+
+                            // Обробник події для вибору підказки
+                            suggestionItem.addEventListener('click', function() {
+                                document.getElementById('search-input').value = item.book_name;
+                                suggestionsDiv.innerHTML = '';  // Очищення підказок після вибору
+                            });
+                        });
+                    });
+            } else {
+                document.getElementById('suggestions').innerHTML = '';  // Очищення підказок, якщо запит короткий
+            }
+        });
+    </script>
+</body>
+</html>

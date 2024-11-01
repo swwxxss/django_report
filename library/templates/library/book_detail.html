@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.book_name }}</title>
+</head>
+<body>
+{% load static %}
+{% include 'library/navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+
+    <h1>{{ book.book_name }}</h1>
+    <p><strong>Author:</strong> {{ book.book_autor }}</p>
+    <p><strong>Genre:</strong> {{ book.book_genre }}</p>
+    <p><strong>Language:</strong> {{ book.book_lenguage }}</p>
+    <p><strong>Year of Publication:</strong> {{ book.book_year_of_public }}</p>
+    <p><strong>Publisher:</strong> {{ book.book_publisher }}</p> <!-- Додайте це поле -->
+    <p><strong>Price:</strong> {{ book.book_price }} ₴</p>
+    <p><strong>Pages:</strong> {{ book.book_pages }}</p>
+    <p><strong>Cover:</strong> <img src="{{ book.book_photo.url }}" alt="{{ book.book_name }}" /></p> <!-- Додайте це поле -->
+    <p><strong>Description:</strong> {{ book.book_description }}</p>
+    <p><strong>Available:</strong> {{ book.book_availability|yesno:"Yes,No" }}</p>
+    <a href="{% url 'book_update' book.pk %}">Edit</a>
+    <a href="{% url 'book_list' %}">Back to List</a>
+</body>
+</html>

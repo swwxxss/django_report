@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результати пошуку</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></head>
+<body>
+
+{% load static %}
+{% include 'library/navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <div class="container mt-5">
+        <h1>Результати пошуку для "{{ query }}"</h1>
+        {% if books %}
+            <ul class="list-group">
+                {% for book in books %}
+                    <li class="list-group-item">
+                        <h5>{{ book.book_name }}</h5>
+                        <p>Автор: {{ book.book_autor }}</p>
+                        <p>Жанр: {{ book.book_genre }}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">Детальніше</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>На жаль, нічого не знайдено.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

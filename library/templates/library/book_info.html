@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.book_name }}</title>
+</head>
+<body>
+    <h1>{{ book.book_name }}</h1>
+
+    {% if book.book_autor %}
+        <p><strong>Автор:</strong> {{ book.book_autor }}</p>
+    {% endif %}
+
+    {% if book.book_genre %}
+        <p><strong>Жанр:</strong> {{ book.book_genre }}</p>
+    {% endif %}
+
+    {% if book.book_lenguage %}
+        <p><strong>Мова:</strong> {{ book.book_lenguage }}</p>
+    {% endif %}
+
+    {% if book.book_year_of_public %}
+        <p><strong>Рік публікації:</strong> {{ book.book_year_of_public }}</p>
+    {% endif %}
+
+    {% if book.book_publisher %}
+        <p><strong>Видавництво:</strong> {{ book.book_publisher }}</p>
+    {% endif %}
+
+    {% if book.book_price %}
+        <p><strong>Ціна:</strong> {{ book.book_price }}</p>
+    {% endif %}
+
+    {% if book.book_article %}
+        <p><strong>Артикул:</strong> {{ book.book_article }}</p>
+    {% endif %}
+
+    {% if book.book_pages %}
+        <p><strong>Кількість сторінок:</strong> {{ book.book_pages }}</p>
+    {% endif %}
+
+    {% if book.book_cover %}
+        <p><strong>Обкладинка:</strong> {{ book.book_cover }}</p>
+    {% endif %}
+
+    {% if book.book_description %}
+        <p><strong>Опис:</strong> {{ book.book_description }}</p>
+    {% endif %}
+
+    {% if book.book_availability %}
+        <p><strong>Доступність:</strong> Так</p>
+    {% else %}
+        <p><strong>Доступність:</strong> Ні</p>
+    {% endif %}
+
+    {% if book.book_photo %}
+        <img src="{{ book.book_photo.url }}" alt="Обкладинка книги">
+    {% endif %}
+</body>
+</html>

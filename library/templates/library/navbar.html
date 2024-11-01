@@ -1,0 +1,48 @@
+<!-- Файл: templates/navbar.html -->
+{% load static %}
+<!--href="{% static 'img/favicon.ico' %}"-->
+<head>
+    <link rel="stylesheet" href="{% static 'img/navbar.css' %}">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'photo/book_hub.png' %}" alt="Logo" style="height: 40px;">
+        </a>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <!-- Центрування навігаційних елементів -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item me-3"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item me-3"><a class="nav-link" href="#">Blog</a></li>
+                <li class="nav-item me-3"><a class="nav-link" href="#">Publishers</a></li>
+                <li class="nav-item me-3"><a class="nav-link" href="#">Discounts</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">For you</a></li>
+            </ul>
+
+            <!-- Пошук і іконки залишаються праворуч -->
+            <form action="{% url 'search_books' %}" method="get" class="d-flex search-bar w-50">
+                <input class="form-control me-2 search-input" type="search" name="query" placeholder="Пошук товарів" aria-label="Search" required>
+                <button class="btn search-button" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+
+            <div class="navbar-icons d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <div class="user-icon">
+                        <a href="{% url 'profile' %}">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}">Увійти</a>
+                {% endif %}
+                <a href="{% url 'cart_view' %}" class="navbar-icons">
+                    <i class="fas fa-shopping-cart"></i>
+                    {% if request.session.cart %}
+                        <span>({{ request.session.cart|length }})</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

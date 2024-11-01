@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .book-link {
+            font-weight: bold;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .book-link:hover {
+            text-decoration: underline;
+        }
+        .btn-custom {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Book List</h1>
+        <div class="text-right mb-3">
+            <a href="{% url 'book_create' %}" class="btn btn-primary">Add New Book</a>
+        </div>
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'book_detail' book.pk %}" class="book-link">{{ book.book_name }}</a>
+                    <div>
+                        <a href="{% url 'book_update' book.pk %}" class="btn btn-warning btn-custom">Edit</a>
+                        <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger btn-custom">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
